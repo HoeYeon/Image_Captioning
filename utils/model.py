@@ -8,7 +8,7 @@ from keras.preprocessing.sequence import pad_sequences
 from tqdm import tqdm
 # To measure BLEU Score
 from nltk.translate.bleu_score import corpus_bleu
-
+from keras.layers.merge import add
 """
 	*Define the CNN model
 """
@@ -49,7 +49,27 @@ def RNNModel(vocab_size, max_len, rnnConfig, model_type):
 	model = Model(inputs=[image_input, caption_input], outputs=final_model)
 	model.compile(loss='categorical_crossentropy', optimizer='adam')
 	return model
+def InjectRNN(vocab_size, max_len, rnnConfig, model_type):
+        embedding_size = rnnConfig['embedding_size']
+        image_input = Input(shape=(2048,))
+        image_model_1 = Dropout(rnnConfig['dropout'])(image_input)
+        image_model = Dense(embedding_size, activation='relu')(image_model_1)
+        image_model = RepeatVector(max_len)(image_model)
 
+        
+        caption_input = Input(shape=(max_len,))
+        caption_model_1 = Embedding(vocab_size, embedding_size, mask_zero=True)(caption_input)
+        caption_model = TimeDistributed(Dense(units=embedding_size))(caption_model_1)
+       # caption_model = Dropout(rnnConfig['dropout'])(caption_model_2)
+
+        decoder1 = concatenate([image_model,caption_model])
+        decoder2 = LSTM(rnnConfig['LSTM_units'])(decoder1)
+        decoder3 = Dense(rnnConfig['dense_units'], activation='relu')(decoder2)
+
+        final_model = Dense(vocab_size, activation='softmax')(decoder3)
+        model = Model(inputs=[image_input, caption_input], outputs=final_model)
+        model.compile(loss='categorical_crossentropy', optimizer='adam')
+        return model
 """
 	*Define the RNN model with different architecture
 """
@@ -76,8 +96,11 @@ def AlternativeRNNModel(vocab_size, max_len, rnnConfig, model_type):
 	# Merging the models and creating a softmax classifier
 	final_model_1 = concatenate([image_model, caption_model])
 	# final_model_2 = LSTM(rnnConfig['LSTM_units'], return_sequences=False)(final_model_1)
-	final_model_2 = Bidirectional(LSTM(rnnConfig['LSTM_units'], return_sequences=False))(final_model_1)
-	# final_model_3 = Dense(rnnConfig['dense_units'], activation='relu')(final_model_2)
+	final_model_2 = LSTM(rnnConfig['LSTM_units'], return_sequences=False)(final_model_1)
+	#final_model_2 = LSTM(rnnConfig['LSTM_units'], return_sequences=False)(final_model_1)
+        
+        
+        # final_model_3 = Dense(rnnConfig['dense_units'], activation='relu')(final_model_2)
 	# final_model = Dense(vocab_size, activation='softmax')(final_model_3)
 	final_model = Dense(vocab_size, activation='softmax')(final_model_2)
 

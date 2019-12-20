@@ -6,10 +6,10 @@ config = {
 	'captions_path': 'train_val_data/Flickr8k.token.txt',
 	'tokenizer_path': 'model_data/tokenizer.pkl',
 	'model_data_path': 'model_data/', #Make sure you put that last slash(/)
-	'model_load_path': 'model_data/model_inceptionv3_epoch-20_train_loss-2.4050_val_loss-3.0527.hdf5',
+	'model_load_path': 'model_data/BLEU_1-0.60-merge.hdf5',
 	'num_of_epochs': 20,
 	'max_length': 40, #This is set manually after training of model and required for test.py
-	'batch_size': 64,
+	'batch_size': 128,
 	'beam_search_k':3,
 	'test_data_path': 'test_data/', #Make sure you put that last slash(/)
 	'model_type': 'inceptionv3', # inceptionv3 or vgg16
@@ -17,8 +17,8 @@ config = {
 }
 
 rnnConfig = {
-	'embedding_size': 300,
+	'embedding_size': 200,
 	'LSTM_units': 256,
 	'dense_units': 256,
-	'dropout': 0.3
+	'dropout': 0.5
 }

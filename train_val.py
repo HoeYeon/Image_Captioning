@@ -41,9 +41,11 @@ vocab_size = len(tokenizer.word_index) + 1
 """
 # model = RNNModel(vocab_size, max_length, rnnConfig, config['model_type'])
 model = AlternativeRNNModel(vocab_size, max_length, rnnConfig, config['model_type'])
+#model = InjectRNN(vocab_size, max_length, rnnConfig, config['model_type'])
 print('RNN Model (Decoder) Summary : ')
 print(model.summary())
 
+print('max_len: ', max_length)
 """
     *Train the model save after each epoch
 """
@@ -89,4 +91,5 @@ model.fit_generator(generator_train,
 	*Evaluate the model on validation data and ouput BLEU score
 """
 print('Model trained successfully. Running model on validation set for calculating BLEU score using BEAM search with k={}'.format(config['beam_search_k']))
-evaluate_model_beam_search(model, X1val, X2val, tokenizer, max_length, beam_index=config['beam_search_k'])
+#evaluate_model_beam_search(model, X1val, X2val, tokenizer, max_length, beam_index=config['beam_search_k'])
+evaluate_model(model,X1val,X2val,tokenizer, max_length)

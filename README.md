@@ -1,5 +1,6 @@
 ## Image Caption Generator
 
+
 [![Issues](https://img.shields.io/github/issues/dabasajay/Image-Caption-Generator.svg?color=%231155cc)](https://github.com/dabasajay/Image-Caption-Generator/issues)
 [![Forks](https://img.shields.io/github/forks/dabasajay/Image-Caption-Generator.svg?color=%231155cc)](https://github.com/dabasajay/Image-Caption-Generator/network)
 [![Stars](https://img.shields.io/github/stars/dabasajay/Image-Caption-Generator.svg?color=%231155cc)](https://github.com/dabasajay/Image-Caption-Generator/stargazers)
@@ -158,7 +159,7 @@ Required libraries for Python along with their version numbers used while making
 
 - [ ] Implement Attention and change model architecture.
 
-- [ ] Support for pre-trained word vectors like word2vec, GloVe etc.
+- [X] Support for pre-trained word vectors like word2vec, GloVe etc.
 
 ## 9. References
 
@@ -166,4 +167,10 @@ Required libraries for Python along with their version numbers used while making
 	<li><a href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vinyals_Show_and_Tell_2015_CVPR_paper.pdf">Show and Tell: A Neural Image Caption Generator</a> - Oriol Vinyals, Alexander Toshev, Samy Bengio, Dumitru Erhan</li>
 	<li><a href="https://arxiv.org/abs/1703.09137">Where to put the Image in an Image Caption Generator</a> - Marc Tanti, Albert Gatt, Kenneth P. Camilleri</li>
 	<li><a href="https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/">How to Develop a Deep Learning Photo Caption Generator from Scratch</a></li>
+    <li><a href="https://github.com/dabasajay/Image-Caption-Generator/"> Image-Caption-Generator</a></li>
 </ul>
+
+## Pre-trained word vector(Glove)
+
+- Pre-trained Glove model
+  - download on <a href="https://nlp.stanford.edu/projects/glove/"></a>
