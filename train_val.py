@@ -25,6 +25,20 @@ assert type(rnnConfig['dropout']) is float, 'Please provide a float value for `d
 	*X1 : Image features
 	*X2 : Text features(Captions)
 """
+
+## Setting GPU Num
+import os
+os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
+os.environ["CUDA_VISIBLE_DEVICES"]="1"
+
+## Setting GPU fraction
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+config2 = tf.compat.v1.ConfigProto()
+config2.gpu_options.per_process_gpu_memory_fraction = 0.5
+tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config2))
+
+
 X1train, X2train, max_length = loadTrainData(config)
 
 X1val, X2val = loadValData(config)
@@ -44,8 +58,21 @@ model = AlternativeRNNModel(vocab_size, max_length, rnnConfig, config['model_typ
 #model = InjectRNN(vocab_size, max_length, rnnConfig, config['model_type'])
 print('RNN Model (Decoder) Summary : ')
 print(model.summary())
-
 print('max_len: ', max_length)
+
+
+
+
+### with Pre-trained model(Glove)######
+'''embedding_matrix = setGlove()
+model.layers[2].set_weights([embedding_matrix])
+model.layers[2].trainable = False
+'''
+########################################
+
+
+
+
 """
     *Train the model save after each epoch
 """
