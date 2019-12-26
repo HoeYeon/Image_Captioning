@@ -173,4 +173,4 @@ Required libraries for Python along with their version numbers used while making
 ## Pre-trained word vector(Glove)
 
 - Pre-trained Glove model
-  - download on <a href="https://nlp.stanford.edu/projects/glove/"></a>
+  - download on <a href="https://nlp.stanford.edu/projects/glove/"> Here</a>
