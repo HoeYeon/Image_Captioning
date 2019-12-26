@@ -53,6 +53,27 @@ def extract_features(path, model_type):
 		features[image_id] = feature
 	return features
 
+
+def extract_features_for_test(filename, model, model_type):
+    if model_type == 'inceptionv3':
+        from keras.applications.inception_v3 import preprocess_input
+        target_size = (299, 299)
+    elif model_type == 'vgg16':
+        from keras.applications.vgg16 import preprocess_input
+        target_size = (224, 224)
+    # Loading and resizing image
+    image = load_img(filename, target_size=target_size)
+    # Convert the image pixels to a numpy array
+    image = img_to_array(image)
+    # Reshape data for the model
+    image = image.reshape((1, image.shape[0], image.shape[1], image.shape[2]))
+    # Prepare the image for the CNN Model model
+    image = preprocess_input(image)
+    # Pass image into model to get encoded features
+    features = model.predict(image, verbose=0)
+    return features
+
+
 """
 	*Extract captions for images
 	*Glimpse of file:
